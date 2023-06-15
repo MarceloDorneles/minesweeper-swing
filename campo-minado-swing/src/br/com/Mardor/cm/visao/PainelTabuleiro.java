@@ -2,7 +2,9 @@ package br.com.Mardor.cm.visao;
 
 import java.awt.GridLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import br.com.Mardor.cm.modelo.Tabuleiro;
 
@@ -16,7 +18,16 @@ public class PainelTabuleiro extends JPanel{
 		tabuleiro.paraCadaCampo(c -> add(new BotaoCampo(c)));
 	
 		tabuleiro.registrarObservadores(e ->{
-			//TODO mostrar resultado para o usuário!
+			
+			SwingUtilities.invokeLater(() -> {
+				if(e.isGanhou()) {
+					JOptionPane.showMessageDialog(this, "GANHOU :)");
+				} else {
+					JOptionPane.showMessageDialog(this, "PERDEU :(");
+				}
+				
+				tabuleiro.reiniciar();
+			});
 		});
 	}
 }
